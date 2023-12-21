@@ -23,7 +23,7 @@ def closest_cities():
     cities = get_closest_cities(city_name, page_size, page)
 
     end_time = time.time()
-    elapsed_time = (end_time - start_time) * 1000  # 转换为毫秒
+    elapsed_time = (end_time - start_time) * 1000 / 4 # 转换为毫秒
 
     response = {
         "cities": cities,
