@@ -61,7 +61,7 @@ def calculate_distance(city_name, lat, lng):
 # Endpoint to handle the KNN clustering request
 @app.route('/data/knn_reviews/stat/knn_reviews', methods=['GET'])
 def knn_reviews():
-    cities_df = pd.read_csv('us-cities.csv')
+    cities_df = pd.read_csv('us-cities2.csv')
     reviews_df = pd.read_csv('amazon-reviews.csv')
     try:
         # Get request parameters
@@ -109,7 +109,7 @@ def get_popular_words(cities, num_words):
     return ['i', 'the', 'me']  # Placeholder data
 
 def calculate_weighted_avg_score(reviews_df, cluster_cities):
-    cities_df = pd.read_csv('us-cities.csv')
+    cities_df = pd.read_csv('us-cities2.csv')
     reviews_df = pd.read_csv('amazon-reviews.csv')
     # Merge reviews_df with cities_df to get the population information
     merged_df = pd.merge(reviews_df, cities_df[['city', 'population']], on='city', how='inner')
