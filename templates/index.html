@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closest Cities</title>
+</head>
+<body>
+    <h1>Find Closest Cities</h1>
+    <label for="city">Enter City Name:</label>
+    <input type="text" id="city" name="city">
+    <label for="page_size">Page Size:</label>
+    <input type="number" id="page_size" name="page_size" value="50">
+    <button onclick="getClosestCities()">Get Closest Cities</button>
+    <div id="closestCitiesResult"></div>
+
+    <script>
+        function getClosestCities() {
+            var cityName = document.getElementById("city").value;
+            var pageSize = document.getElementById("page_size").value;
+
+            // 构造 URL，包含城市名和页面大小参数
+            var apiUrl = `/stat/closest_cities?city=${cityName}&page=0&page_size=${pageSize}`;
+
+            // 发送 GET 请求到 RESTful API
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // 处理响应数据
+                    displayClosestCities(data.cities, data.computing_time);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function displayClosestCities(cities, computingTime) {
+            var resultDiv = document.getElementById("closestCitiesResult");
+            resultDiv.innerHTML = `<p>Computing Time: ${computingTime} ms</p>`;
+            resultDiv.innerHTML += "<h3>Closest Cities:</h3>";
+
+            for (var i = 0; i < cities.length; i++) {
+                resultDiv.innerHTML += `<p>${cities[i].name} - Distance: ${cities[i].distance}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
